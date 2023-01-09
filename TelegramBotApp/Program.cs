@@ -16,6 +16,8 @@ namespace TelegramBotApp
             client.StartReceiving(Update, Error);
             Console.ReadLine();
         }
+        
+
 
        async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
@@ -24,28 +26,38 @@ namespace TelegramBotApp
             if (message.Text != null)
             {
                 Console.WriteLine($"{message.Chat.FirstName } | {message.Text}");
-                if (message.Text.ToLower().Contains("привет"))
+                if (message.Text.ToLower().Contains("/help"))
                 {
-                    await botClient.SendTextMessageAsync(message.Chat.Id, "Ну привет");
+                    await botClient.SendTextMessageAsync(message.Chat.Id, 
+                        "Список команд бота: \n" +
+                        "/scan - ищет чёт \n" +
+                        "/время - показывает время");
                     return;
                 }
+                else
+                {
+                    if (message.Text.ToLower().Contains("/время"))
+                    {
+                        await botClient.SendTextMessageAsync(message.Chat.Id, $"{DateTime.Now}");
+                    }
+                    else
+                    {
+                        await botClient.SendTextMessageAsync(message.Chat.Id, "Неизвестная команда");
+                        return;
+                    }
+
+                }
+
+                
             }
             if (message.Photo != null)
             {
                 await botClient.SendTextMessageAsync(message.Chat.Id, "картинка...");
+                
 
-                //var fileId = update.Message.Document.FileId;
-                //var fileInfo = await botClient.GetFileAsync(fileId);
-                //var filePath = fileInfo.FilePath;
+                return;
 
-                //string destinationFilePath = $"E:/УЧЁБА/Repos/TelegramBotApp/TelegramBotApp/Files/@{message.Chat.Id.ToString()}";
-
-                //await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
-                //await botClient.DownloadFileAsync(filePath, fileStream);
-                //fileStream.Close();
-
-
-                //return;
+                
             }
             if (message.Sticker != null)
             {
@@ -55,18 +67,18 @@ namespace TelegramBotApp
             }
             if (message.Document != null)
             {
-                await botClient.SendTextMessageAsync(message.Chat.Id, "downloaded");
+                //await botClient.SendTextMessageAsync(message.Chat.Id, "downloaded");
 
-                var fileId = update.Message.Document.FileId;
-                var fileInfo = await botClient.GetFileAsync(fileId);
-                var filePath = fileInfo.FilePath;
+                //var fileId = update.Message.Document.FileId;
+                //var fileInfo = await botClient.GetFileAsync(fileId);
+                //var filePath = fileInfo.FilePath;
                
 
-                string destinationFilePath = $"E:/УЧЁБА/Repos/TelegramBotApp/TelegramBotApp/Files/@{message.Chat.Id}/@{message.Document.FileName}";
+                //string destinationFilePath = $"E:/УЧЁБА/Repos/TelegramBotApp/TelegramBotApp/Files/@{message.Chat.Id}/@{message.Document.FileName}";
 
-                await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
-                await botClient.DownloadFileAsync(filePath, fileStream);
-                fileStream.Close();
+                //await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+                //await botClient.DownloadFileAsync(filePath, fileStream);
+                //fileStream.Close();
 
 
                 return;
