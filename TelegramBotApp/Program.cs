@@ -72,9 +72,9 @@ namespace TelegramBotApp
             //}
         }
 
-        async static Task Error(ITelegramBotClient arg1, Exception arg2, CancellationToken arg3)
+        async static Task Error(ITelegramBotClient arg1, Exception ex, CancellationToken arg3)
         {
-           Console.WriteLine($"{arg2}");
+           Console.WriteLine($"{ex}");
         }
     }
 }
