@@ -24,7 +24,7 @@ namespace TelegramBotApp
             if (message.Text != null)
             {
                 Console.WriteLine($"{message.Chat.FirstName } | {message.Text}");
-                Tools.MessageSaver(message.Chat.FirstName, message.Text);
+                Tools.TextMessageSaver(message.Chat.FirstName, message.Text);
                 if (message.Text.ToLower().Contains("/help"))
                 {
                     await botClient.SendTextMessageAsync(message.Chat.Id, 
@@ -51,7 +51,7 @@ namespace TelegramBotApp
             if (message.Photo != null)
             {
                 await botClient.SendTextMessageAsync(message.Chat.Id, "картинка...");
-                
+                Tools.PictureMessageSaver(message.Chat.FirstName, message.Photo.ToString());               
 
                 return;
 
@@ -60,6 +60,7 @@ namespace TelegramBotApp
             if (message.Sticker != null)
             {
                 Console.WriteLine($"{message.Chat.FirstName} | {"sent a sticker"}");
+                Tools.StickerMessageSaver(message.Chat.FirstName, message.Sticker.SetName);
                 await botClient.SendTextMessageAsync(message.Chat.Id, "send nudes pls");
                 return;
             }
