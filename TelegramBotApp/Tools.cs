@@ -5,25 +5,26 @@ namespace TelegramBotApp
 {
     public class Tools
     {
-        string pathFolder, pathFile;
-        public void MessageSaver(string UserId, string UserMessage)
+        static string pathFolder, pathFile;
+        public static void MessageSaver(string UserId, string UserMessage)
         {
-            pathFolder = $"E:/УЧЁБА/Repos/TelegramBotApp/TelegramBotApp/Files/@{UserId}";
+            pathFolder = $"../../../Files/@{UserId}";
+            pathFile = pathFolder + "/" + UserId + ".txt";
             if (!Directory.Exists(pathFolder))
             {
                 Directory.CreateDirectory(pathFolder);
-                pathFile = pathFolder + "/" + UserId + ".txt";
+
                 System.IO.File.CreateText(pathFile);
             }
             else
             {
                 try
                 {
-                    StreamWriter writer = new StreamWriter(pathFile);
-                    writer.WriteLine(UserMessage);
+                    StreamWriter writer = new StreamWriter(pathFile, true);
+                    writer.WriteLine(DateTime.Now + " | " + UserMessage);
                     writer.Close();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine("Ошибка записи " + DateTime.Now + ex.Message);
                 }
