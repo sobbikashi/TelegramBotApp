@@ -15,44 +15,12 @@ namespace TelegramBotApp
             var client = new TelegramBotClient("5618268261:AAFRKNk-HKZvXOYPj_7Q-nAbTAbv0sLEtJk");
             client.StartReceiving(Update, Error);
             Console.ReadLine();
-        }
-        //public class Tools
-        //{
-        //     static string pathFolder, pathFile;
-        //    public static void MessageSaver(string UserId, string UserMessage)
-        //    {
-        //       pathFolder = $"../../../Files/@{UserId}";
-        //       pathFile = pathFolder + "/" + UserId + ".txt";
-        //        if (!Directory.Exists(pathFolder))
-        //        {
-        //            Directory.CreateDirectory(pathFolder);
-                    
-        //            System.IO.File.CreateText(pathFile);
-        //        }
-        //        else
-        //        {
-        //            try
-        //            {
-        //                StreamWriter writer = new StreamWriter(pathFile);
-        //                writer.WriteLine(UserMessage);
-        //                writer.Close();
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                Console.WriteLine("Ошибка записи " + DateTime.Now + ex.Message);
-        //            }
-        //        }
-        //    }
-        //}
-
-
-
+        }     
 
 
         async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
-            var message = update.Message;
-            //var defaultFolderName = message.Chat.Id.ToString();
+            var message = update.Message;            
             if (message.Text != null)
             {
                 Console.WriteLine($"{message.Chat.FirstName } | {message.Text}");
@@ -78,7 +46,6 @@ namespace TelegramBotApp
                     }
 
                 }
-
                 
             }
             if (message.Photo != null)
@@ -114,6 +81,7 @@ namespace TelegramBotApp
 
                 return;
             }
+            
         }
 
         async static Task Error(ITelegramBotClient arg1, Exception ex, CancellationToken arg3)

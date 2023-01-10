@@ -14,7 +14,7 @@ namespace TelegramBotApp
             {
                 Directory.CreateDirectory(pathFolder);
 
-                System.IO.File.CreateText(pathFile);
+                File.CreateText(pathFile);
             }
             else
             {
