@@ -16,16 +16,46 @@ namespace TelegramBotApp
             client.StartReceiving(Update, Error);
             Console.ReadLine();
         }
-        
+        public class Tools
+        {
+             static string pathFolder, pathFile;
+            public static void MessageSaver(string UserId, string UserMessage)
+            {
+               pathFolder = $"E:/УЧЁБА/Repos/TelegramBotApp/TelegramBotApp/Files/@{UserId}";
+                if (!Directory.Exists(pathFolder))
+                {
+                    Directory.CreateDirectory(pathFolder);
+                    pathFile = pathFolder + "/" + UserId + ".txt";
+                    System.IO.File.CreateText(pathFile);
+                }
+                else
+                {
+                    try
+                    {
+                        StreamWriter writer = new StreamWriter(pathFile);
+                        writer.WriteLine(UserMessage);
+                        writer.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Ошибка записи " + DateTime.Now + ex.Message);
+                    }
+                }
+            }
+        }
 
 
-       async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
+
+
+
+        async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
             var message = update.Message;
             //var defaultFolderName = message.Chat.Id.ToString();
             if (message.Text != null)
             {
                 Console.WriteLine($"{message.Chat.FirstName } | {message.Text}");
+                Tools.MessageSaver(message.Chat.FirstName, message.Text);
                 if (message.Text.ToLower().Contains("/help"))
                 {
                     await botClient.SendTextMessageAsync(message.Chat.Id, 
