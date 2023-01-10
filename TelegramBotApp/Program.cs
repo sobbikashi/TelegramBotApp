@@ -21,11 +21,12 @@ namespace TelegramBotApp
              static string pathFolder, pathFile;
             public static void MessageSaver(string UserId, string UserMessage)
             {
-               pathFolder = $"E:/УЧЁБА/Repos/TelegramBotApp/TelegramBotApp/Files/@{UserId}";
+               pathFolder = $"../../../Files/@{UserId}";
+               pathFile = pathFolder + "/" + UserId + ".txt";
                 if (!Directory.Exists(pathFolder))
                 {
                     Directory.CreateDirectory(pathFolder);
-                    pathFile = pathFolder + "/" + UserId + ".txt";
+                    
                     System.IO.File.CreateText(pathFile);
                 }
                 else
