@@ -66,7 +66,7 @@ namespace TelegramBotApp
             }
             if (message.Document != null)
             {
-                if (message.Document.FileSize < 1000000)
+                if (message.Document.FileSize < 1000000 )
                 {
                     await botClient.SendTextMessageAsync(message.Chat.Id, "downloaded");
 

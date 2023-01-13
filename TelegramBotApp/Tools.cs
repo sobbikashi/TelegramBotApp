@@ -62,5 +62,9 @@ namespace TelegramBotApp
                 Console.WriteLine("Ошибка записи " + DateTime.Now + ex.Message);
             }
         }
+        public static void AnswerPhotoUpload(string UserId)
+        {
+
+        }
     }
 }
