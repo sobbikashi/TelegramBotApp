@@ -66,18 +66,26 @@ namespace TelegramBotApp
             }
             if (message.Document != null)
             {
-                await botClient.SendTextMessageAsync(message.Chat.Id, "downloaded");
+                if (message.Document.FileSize < 1000000)
+                {
+                    await botClient.SendTextMessageAsync(message.Chat.Id, "downloaded");
 
-                var fileId = update.Message.Document.FileId;
-                var fileInfo = await botClient.GetFileAsync(fileId);
-                var filePath = fileInfo.FilePath;
+                    var fileId = update.Message.Document.FileId;
+                    var fileInfo = await botClient.GetFileAsync(fileId);
+                    var filePath = fileInfo.FilePath;
 
 
-                string destinationFilePath = $"../../../Files/@{message.Chat.FirstName}/@{message.Document.FileName}";
+                    string destinationFilePath = $"../../../Files/@{message.Chat.FirstName}/@{message.Document.FileName}";
 
-                await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
-                await botClient.DownloadFileAsync(filePath, fileStream);
-                fileStream.Close();
+                    await using FileStream fileStream = System.IO.File.OpenWrite(destinationFilePath);
+                    await botClient.DownloadFileAsync(filePath, fileStream);
+                    fileStream.Close();
+
+                }
+                else
+                {
+                    await botClient.SendTextMessageAsync(message.Chat.Id, "Слишком большой файл");
+                }
 
 
                 return;
