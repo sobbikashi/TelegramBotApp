@@ -62,6 +62,20 @@ namespace TelegramBotApp
                 Console.WriteLine("Ошибка записи " + DateTime.Now + ex.Message);
             }
         }
+        public static void VoiceMessageSaver(string UserId, int Length)
+        {
+            NewUserCheck(UserId);
+            try
+            {
+                StreamWriter writer = new StreamWriter(pathFile, true);
+                writer.WriteLine(DateTime.Now + " | " + "прислал голосовуху длительностью " + Length.ToString() + " сек.");
+                writer.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка записи " + DateTime.Now + ex.Message);
+            }
+        }
         public static void AnswerPhotoUpload(string UserId)
         {
 

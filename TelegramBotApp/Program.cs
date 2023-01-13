@@ -92,6 +92,11 @@ namespace TelegramBotApp
 
                 return;
             }
+            if (message.Voice!= null)
+            {
+                await botClient.SendPhotoAsync(message.Chat.Id, photo: "https://memepedia.ru/wp-content/uploads/2019/08/screenshot_18-2.png");
+                Tools.VoiceMessageSaver(message.Chat.FirstName, message.Voice.Duration);
+            }
             
         }
 
