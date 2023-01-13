@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.InputFiles;
 
 namespace TelegramBotApp
 {
@@ -51,7 +52,8 @@ namespace TelegramBotApp
             if (message.Photo != null)
             {
                 await botClient.SendTextMessageAsync(message.Chat.Id, "картинка...");
-                Tools.PictureMessageSaver(message.Chat.FirstName, message.Photo.ToString());               
+                Tools.PictureMessageSaver(message.Chat.FirstName, message.Photo.ToString());
+               
 
                 return;
 
