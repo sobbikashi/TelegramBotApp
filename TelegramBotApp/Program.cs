@@ -1,11 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.InputFiles;
 
 namespace TelegramBotApp
 {
@@ -16,7 +14,13 @@ namespace TelegramBotApp
             var client = new TelegramBotClient("5618268261:AAFRKNk-HKZvXOYPj_7Q-nAbTAbv0sLEtJk");
             client.StartReceiving(Update, Error);
             Console.ReadLine();
-        }     
+        }
+        public static int GetRandom()
+        {
+            Random rnd = new Random();
+            int result;
+            return (result = rnd.Next(0, 100));
+        }
 
 
         async static Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
@@ -28,17 +32,15 @@ namespace TelegramBotApp
                 Tools.TextMessageSaver(message.Chat.FirstName, message.Text);
                 if (message.Text.ToLower().Contains("/help"))
                 {
-                    await botClient.SendTextMessageAsync(message.Chat.Id, 
-                        "Список команд бота: \n" +
-                        "/scan - ищет чёт \n" +
-                        "/время - показывает время");
+                    await botClient.SendTextMessageAsync(message.Chat.Id,                         
+                        "рандом - показывает ваш ролл");
                     return;
                 }
                 else
                 {
-                    if (message.Text.ToLower().Contains("/время"))
+                    if (message.Text.ToLower().Contains("рандом"))
                     {
-                        await botClient.SendTextMessageAsync(message.Chat.Id, $"{DateTime.Now}");
+                        await botClient.SendTextMessageAsync(message.Chat.Id, $"{message.Chat.FirstName} получает {GetRandom()}");
                     }
                     else
                     {
